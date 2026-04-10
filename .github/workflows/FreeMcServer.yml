@@ -3,7 +3,7 @@ name: FreeMcServer 续期
 on:
   schedule:
     # 每 3 小时 30 分运行一次
-    - cron: '30 */3 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 jobs:
