@@ -80,12 +80,17 @@ def screenshot_path(account_index: int, name: str) -> str:
 
 def safe_screenshot(sb, path: str, result: Optional[Dict] = None):
     try:
+        p = Path(path)
+        clean_name = p.name.replace("*", "-").replace(":", "-").replace("?", "")
+        path = str(p.with_name(clean_name))
+
         sb.save_screenshot(path)
         logger.info(f"📸 截图 → {Path(path).name}")
         if result is not None:
             result.setdefault("screenshots", []).append(path)
     except Exception as e:
         logger.warning(f"截图失败: {e}")
+
 
 def notify_telegram(account_index: int, email: str, server_results: List[Dict], overall_success: bool, overall_message: str = "", screenshot_file: str = None):
     try:
